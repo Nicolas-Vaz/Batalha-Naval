@@ -1,0 +1,126 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+char tabuleiro1[10][10],jogadas1,jogadas2,tabuleiro2[10][10];
+int i,l,c,x,y;
+///ALIMENTA��O
+int alimentarTabs(char tabuleiro1[10][10])
+{
+for(l=0;l<10;l++)
+{
+        for(c=0;c<10;c++)
+        {
+         tabuleiro1[l][c]='-';
+
+        }
+    }
+}
+int alimentarTabs2(char tabuleiro2 [10][10])
+{
+for(l=0;l<10;l++)
+{
+        for(c=0;c<10;c++)
+        {
+
+         tabuleiro2[l][c]='-';
+        }
+    }
+}
+///FIM DA ALIMENTA��O
+/// TESTE DE TABULEIRO1
+int TesteDeTab1(char tab[10][10], int a, int b)
+{
+    if(tab[a][b]!='x')
+    {
+        //posi��o valida
+        tab[a][b]='x';
+
+    }
+    else
+    {
+        printf("\nposicao invalida\nColoque outra coordenada");
+
+    }
+}
+/// TESTE TABULEIRO2
+int testeDeTab2(char tab2[10][10], int y, int x)
+{
+    if(tab2[y][x]!='x')
+    {
+        //posi��o valida
+        tab2[y][x]='x';
+
+    }
+    else
+    {
+        printf("\nposi��o invalida\nColoque outra coordenada");
+
+    }
+}
+
+///IMPRIMIR
+int imprimir_tabuleiro1(char tabuleiro1[10][10])
+{
+for(l=0;l<10;l++)
+    {
+            for(c=0;c<10;c++)
+            {
+            printf("[%c]",tabuleiro1[l][c]);
+            }
+        printf("\n");
+    }
+}
+
+///IMPRIMIR2
+int imprimir_tabuleiro2(char tabuleiro2[10][10])
+{
+    for(l=0;l<10;l++)
+    {
+            for(c=0;c<10;c++)
+            {
+            printf("[%c]",tabuleiro2[l][c]);
+            }
+        printf("\n");
+    }
+}
+///JOGADAS-----------------------------------------------
+int jogadas()
+{
+    printf("para jogadas use X para colocar o barco e o resto deixe em branco");
+    for(i=1;i<21;i++)
+    {
+        if(i<10)
+        {
+
+            printf("\nvez do primeiro jogador");
+            printf("\nDigite suas coordenadas\nDe as coordenadas de Y=Altura para depois dar as de X=horizontais");
+            scanf("%d %d",&y-1,&x-1);
+            TesteDeTab1(tabuleiro1,y,x);
+            system("cls");
+            imprimir_tabuleiro1(tabuleiro1);
+        if(i>10)
+            {
+            printf("\nvez do segundo jogador");
+            imprimir_tabuleiro2(tabuleiro2);
+            printf("\nDigite suas coordenadas\nDe as coordenadas de Y=Altura para depois dar as de X=horizontais");
+            scanf("%d %d",&y,&x);
+            TesteDeTab1(tabuleiro2,y,x);
+
+
+
+        }
+    }
+}
+}
+
+///MAIN---------------------------------------------------
+int main()
+{
+    alimentarTabs(tabuleiro1);
+    alimentarTabs2(tabuleiro2);
+    printf("BATALHA NAVAL\nas regras do jogo s�o:\ntodos jogadores podem colocar 10 pe�as\ntodos barcos criados deveram estar conectados em fila reta\nn�o podem estar em Diagonais\n Mas podem estar separados");
+    printf("Tabuleiro � divido assim:\n  1  2  3  4  5  6  7  8  9  10\n1  [] [] [] [] [] [] [] [] [] []\n2  [] [] [] [] [] [] [] [] [] []\n3  [] [] [] [] [] [] [] [] [] []\n4  [] [] [] [] [] [] [] [] [] []\n5  [] [] [] [] [] [] [] [] [] []\n6  [] [] [] [] [] [] [] [] [] []\n7  [] [] [] [] [] [] [] [] [] []\n8  [] [] [] [] [] [] [] [] [] []\n9  [] [] [] [] [] [] [] [] [] []\n10 [] [] [] [] [] [] [] [] [] []\n");
+    printf("Mostre as coordenadas como Numero para Coluna | e Letra para para as Linhas --");
+    system("cls");
+    jogadas();
+}
