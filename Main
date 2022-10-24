@@ -1,65 +1,90 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<locale.h>
+char tabuleiro1[10][10],jogadas1,jogadas2,tabuleiro2[10][10],tabuleiro_ataque[10][10],tabuleiro_ataque2[10][10];
+int i,l,c,x,y,erro1,acerto1,acerto2,erro2;
 
-char tabuleiro1[10][10],jogadas1,jogadas2,tabuleiro2[10][10];
-int i,l,c,x,y;
+///VITORIA
+void vencedor()
+{
+    setlocale(LC_ALL, "Portuguese");
+    if(acerto1>acerto2){
+        printf("\ncom %d acertos e com %d erros", acerto1, erro1);
+        sleep(5);
+        printf("\na maquina de destruição, o REI DE TODO CAOS");
+        sleep(5);
+        printf("\nParabens Jogador numero 1 pela sua VITORIA sabemos que voce se sacrificou para ganhar essa partida, meus parabens");
+    }
+    if(acerto2>acerto1){
+        printf("\ncom %d acertos e com %d erros", acerto2, erro2);
+        sleep(5);
+        printf("\na maquina de destruição, o REI DE TODO CAOS");
+        sleep(5);
+        printf("\nParabens Jogador numero 2 pela sua VITORIA sabemos que voce se sacrificou para ganhar essa partida, meus parabens");
+    }
+}
 ///ALIMENTA��O
-int alimentarTabs(char tabuleiro1[10][10])
+int alimentarTabs()
 {
 for(l=0;l<10;l++)
 {
         for(c=0;c<10;c++)
         {
          tabuleiro1[l][c]='-';
+         tabuleiro_ataque[l][c]='-';
 
         }
     }
 }
-int alimentarTabs2(char tabuleiro2 [10][10])
+int alimentarTabs2()
 {
 for(l=0;l<10;l++)
 {
         for(c=0;c<10;c++)
         {
-
+         tabuleiro_ataque2[l][c]='-';
          tabuleiro2[l][c]='-';
         }
     }
 }
 ///FIM DA ALIMENTA��O
 /// TESTE DE TABULEIRO1
-int TesteDeTab1(char tab[10][10], int a, int b)
+int TesteDeTab1(int y, int x, int i)
 {
-    if(tab[a][b]!='x')
+    if(tabuleiro1[y][x]!='x')
     {
         //posi��o valida
-        tab[a][b]='x';
+        tabuleiro1[y][x]='x';
 
     }
     else
     {
         printf("\nposicao invalida\nColoque outra coordenada");
+        i--;
+        return(i);
 
     }
 }
 /// TESTE TABULEIRO2
-int testeDeTab2(char tab2[10][10], int y, int x)
+int testeDeTab2(int y, int x, int i)
 {
-    if(tab2[y][x]!='x')
+    if(tabuleiro2[y][x]!='x')
     {
         //posi��o valida
-        tab2[y][x]='x';
+        tabuleiro2[y][x]='x';
 
     }
     else
     {
         printf("\nposi��o invalida\nColoque outra coordenada");
+        i--;
+        return(i);
 
     }
 }
 
 ///IMPRIMIR
-int imprimir_tabuleiro1(char tabuleiro1[10][10])
+int imprimir_tabuleiro1()
 {
 for(l=0;l<10;l++)
     {
@@ -72,7 +97,7 @@ for(l=0;l<10;l++)
 }
 
 ///IMPRIMIR2
-int imprimir_tabuleiro2(char tabuleiro2[10][10])
+int imprimir_tabuleiro2()
 {
     for(l=0;l<10;l++)
     {
@@ -83,44 +108,157 @@ int imprimir_tabuleiro2(char tabuleiro2[10][10])
         printf("\n");
     }
 }
-///JOGADAS-----------------------------------------------
-int jogadas()
+///IMPRIMIR ATAQUES
+int imprimir_tab_ataq()
 {
-    printf("para jogadas use X para colocar o barco e o resto deixe em branco");
-    for(i=1;i<21;i++)
+    for(l=0;l<10;l++)
     {
-        if(i<10)
+            for(c=0;c<10;c++)
+            {
+            printf("[%c]",tabuleiro_ataque[l][c]);
+            }
+        printf("\n");
+    }
+}
+///IMPRIMIR ATAQUES2
+int imprimir_tab_ataq2()
+{
+    for(l=0;l<10;l++)
+    {
+            for(c=0;c<10;c++)
+            {
+            printf("[%c]",tabuleiro_ataque2[l][c]);
+            }
+        printf("\n");
+    }
+}
+///Teste de Ataque-
+int teste_de_ataque(int y, int x)
+{
+
+        if(tabuleiro_ataque[y][x]=='x' && tabuleiro2[y][x]=='x'){
+            printf("você acertou o tiro parabéns\n");
+            tabuleiro2[y][x]='O';
+            acerto1++;
+            if(acerto1==1){
+                printf("DESTRUIDOR DE TUDO E TODOS");
+            }
+            if(acerto1==5){
+                printf("É O CAPITÃO JACK SPARROW???");
+            }
+            if(acerto1==7){
+                printf("UMA MAQUINAAAAA");
+            }
+    }
+        else{
+            erro1++;
+            printf("mira mais para o lado, vai que acertar");
+        }
+
+
+}
+///Teste de Ataque2-
+int teste_de_ataque2(int y, int x)
+{
+
+        if(tabuleiro_ataque2[y][x]=='x' && tabuleiro1[y][x]=='x'){
+            printf("você acertou o tiro parabéns\n");
+            tabuleiro1[y][x]='O';
+            acerto2++;
+            if(acerto2==1){
+                printf("DESTRUIDOR DE TUDO E TODOS");
+            }
+            if(acerto2==5){
+                printf("É O CAPITÃO JACK SPARROW???");
+            }
+            if(acerto2==7){
+                printf("UMA MAQUINAAAAA");
+            }
+    }
+        else{
+            erro2++;
+            printf("mira mais para o lado, vai que acertar");
+        }
+
+
+}
+///JOGADAS-DE-ATAQUE----------------------------------
+int jogadas_de_ataque()
+{
+    while(i<21){
+    i++;
+        if(i%2==1)
         {
 
-            printf("\nvez do primeiro jogador");
-            printf("\nDigite suas coordenadas\nDe as coordenadas de Y=Altura para depois dar as de X=horizontais");
-            scanf("%d %d",&y-1,&x-1);
-            TesteDeTab1(tabuleiro1,y,x);
-            system("cls");
-            imprimir_tabuleiro1(tabuleiro1);
-        if(i>10)
-            {
-            printf("\nvez do segundo jogador");
-            imprimir_tabuleiro2(tabuleiro2);
-            printf("\nDigite suas coordenadas\nDe as coordenadas de Y=Altura para depois dar as de X=horizontais");
-            scanf("%d %d",&y,&x);
-            TesteDeTab1(tabuleiro2,y,x);
+                imprimir_tab_ataq();
+                printf("\nVez de ataque do Jogador 1");
+                printf("\nDigite suas coordenadas\nDe as coordenadas de Y=Altura para depois dar as de X=horizontais");
+                scanf("%d %d",&y,&x);
+                tabuleiro_ataque[y-1][x-1]='x';
+                teste_de_ataque(y-1,x-1);
+                system("cls");
 
+
+        }
+       if(i%2==1)
+        {
+
+                imprimir_tab_ataq2();
+                printf("\nVez de ataque do Jogador 1");
+                printf("\nDigite suas coordenadas\nDe as coordenadas de Y=Altura para depois dar as de X=horizontais");
+                scanf("%d %d",&y,&x);
+                tabuleiro_ataque2[y-1][x-1]='x';
+                teste_de_ataque2(y-1,x-1);
+                system("cls");
 
 
         }
     }
+    vencedor();
+
+
 }
+///JOGADAS-----------------------------------------------
+int jogadas()
+{
+    printf("para jogadas use X para colocar o barco e o resto deixe em branco");
+    for(i=0;i<10;i++)
+    {
+
+            printf("\nvez do primeiro jogador");
+            printf("\nDigite suas coordenadas\nDe as coordenadas de Y=Altura para depois dar as de X=horizontais");
+            scanf("%d %d",&y,&x);
+            TesteDeTab1(y-1,x-1,i);
+            system("cls");
+            imprimir_tabuleiro1();
+
+    }
+    getchar();
+    system("cls");
+    for(i=0;i<10;i++){
+
+            printf("\nvez do segundo jogador");
+            printf("\nDigite suas coordenadas\nDe as coordenadas de Y=Altura para depois dar as de X=horizontais");
+            scanf("%d %d",&y,&x);
+            testeDeTab2(y-1,x-1,i);
+            system("cls");
+            imprimir_tabuleiro2();
+    }
+    getchar();
+    system("cls");
+    jogadas_de_ataque();
 }
 
 ///MAIN---------------------------------------------------
 int main()
 {
-    alimentarTabs(tabuleiro1);
-    alimentarTabs2(tabuleiro2);
-    printf("BATALHA NAVAL\nas regras do jogo s�o:\ntodos jogadores podem colocar 10 pe�as\ntodos barcos criados deveram estar conectados em fila reta\nn�o podem estar em Diagonais\n Mas podem estar separados");
+    setlocale(LC_ALL, "Portuguese");
+    alimentarTabs();
+    alimentarTabs2();
+    printf("BATALHA NAVAL\ntodos jogadores podem colocar 10 peças\nnão use as mesmas coordenadas senão você ira perder uma jogada");
     printf("Tabuleiro � divido assim:\n  1  2  3  4  5  6  7  8  9  10\n1  [] [] [] [] [] [] [] [] [] []\n2  [] [] [] [] [] [] [] [] [] []\n3  [] [] [] [] [] [] [] [] [] []\n4  [] [] [] [] [] [] [] [] [] []\n5  [] [] [] [] [] [] [] [] [] []\n6  [] [] [] [] [] [] [] [] [] []\n7  [] [] [] [] [] [] [] [] [] []\n8  [] [] [] [] [] [] [] [] [] []\n9  [] [] [] [] [] [] [] [] [] []\n10 [] [] [] [] [] [] [] [] [] []\n");
-    printf("Mostre as coordenadas como Numero para Coluna | e Letra para para as Linhas --");
+    printf("Mostre as coordenadas como Numero para Coluna | e Numero para para as Linhas --");
+    getchar();
     system("cls");
     jogadas();
 }
