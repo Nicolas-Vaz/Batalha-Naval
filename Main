@@ -22,6 +22,22 @@ void vencedor()
         sleep(5);
         printf("\nParabens Jogador numero 2 pela sua VITORIA sabemos que voce se sacrificou para ganhar essa partida, meus parabens");
     }
+    if(acerto1==acerto2){
+        printf("\nParabens para os participantes");
+        sleep(5);
+        printf("\nMas no temos apenas um vencendor...");
+        sleep(5);
+        printf("\nEspera, Parece que tivemos erros, nessa partida");
+        sleep(5);
+        printf("\nTIVEMOS...");
+        sleep(5);
+        printf("\nEMPATEEEE");
+        sleep(5);
+        printf("\nParabens Jogadores pelo  EMPATE sabemos que vocês se sacrificaram para ganhar essa partida,mas foram tão BONS que nem Conseguir ganhar conseguiram");
+        printf("\nJogador numero 1 esta com %d acertos e com %d erros", acerto1, erro1);
+        printf("\nJogador numero 2 esta com %d acertos e com %d erros", acerto2, erro2);
+
+    }
 }
 ///ALIMENTA��O
 int alimentarTabs()
@@ -165,13 +181,13 @@ int teste_de_ataque2(int y, int x)
             printf("você acertou o tiro parabéns\n");
             tabuleiro1[y][x]='O';
             acerto2++;
-            if(acerto2==1){
+            if(acerto2>=1){
                 printf("DESTRUIDOR DE TUDO E TODOS");
             }
-            if(acerto2==5){
+            if(acerto2>=5){
                 printf("É O CAPITÃO JACK SPARROW???");
             }
-            if(acerto2==7){
+            if(acerto2>=7){
                 printf("UMA MAQUINAAAAA");
             }
     }
@@ -204,7 +220,7 @@ int jogadas_de_ataque()
         {
 
                 imprimir_tab_ataq2();
-                printf("\nVez de ataque do Jogador 1");
+                printf("\nVez de ataque do Jogador 2");
                 printf("\nDigite suas coordenadas\nDe as coordenadas de Y=Altura para depois dar as de X=horizontais");
                 scanf("%d %d",&y,&x);
                 tabuleiro_ataque2[y-1][x-1]='x';
